@@ -386,38 +386,53 @@ def main(grid):
 
 
         while (fullBoard(grid) == False):
-
+            
 
             move = getMove(grid)
             newGrid = insertLetter(ai, move, grid)
             result = (winnercheck(grid))
-    
-        
-
-            if (fullBoard(grid) == True):
-                if (winnercheck(grid) == True):
-                    printBoard(grid)
-                    print("Winner!")
-                    break
-                else:
-                    printBoard(grid)
-                    print("Tie!")
-                    break
-                     
-            if (result == False):
-                print ("")
+            if (result == True):
                 printBoard(grid)
-                print ("No winner yet!")
-                print ("")
-                print ("")
-                move = int(input("What's your move? (1 - 9)"))
-                grid = insertLetter(human, move - 1, grid)
-                                    
-            else:
-                print("")
-                printBoard(grid)
-                print("Winner!")
+                print("winner!")
                 break
+            
+            else:
+                turn = human
+        
+                while (turn == human):
+
+                    if (fullBoard(grid) == True):
+                        if (winnercheck(grid) == True):
+                            printBoard(grid)
+                            print("Winner!")
+                            turn = ai
+                            break
+                        else:
+                            printBoard(grid)
+                            print("Tie!")
+                            break
+                        
+                    if (result == True):
+                        print("")
+                        printBoard(grid)
+                        print("Winner!")
+                        break
+                             
+                    if (result == False):
+                        print ("")
+                        printBoard(grid)
+                        print ("No winner yet!")
+                        print ("")
+                        print ("")
+                        move = int(input("What's your move? (1 - 9)"))
+
+                        if (grid[move - 1] == "_"):
+                            grid = insertLetter(human, move - 1, grid)
+                            turn = ai
+                        
+                        else:
+                            print ("Invalid move! Position is occupied!")
+                                        
 
     else:
         print("Okay, goodbye!")
